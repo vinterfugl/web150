@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    
+<script>
+
+var grades = "jim|25, sue|32, mary|34, ann|22, ted|28, frank|15, lisa|19, mike|30, ahn|26, vishaya|27";
+
+var splitGrades = grades.split(", ");
+  
+for (var i = 0; i < splitGrades.length; i = i + 1) {
+    splitGrades[i] = splitGrades[i].split("|");
+}
+    
+for (var i = 0; i < splitGrades.length; i = i + 1) {
+         splitGrades[i][0] = splitGrades[i][0].charAt(0).toUpperCase() + splitGrades[i][0].substr(1, splitGrades[i][0].length);
+        splitGrades[i][1] = parseInt(splitGrades[i][1]);
+}
+
+for (var i = 0; i <splitGrades.length; i = i + 1) {
+    splitGrades = splitGrades.sort();
+}
+    
+for (var i = 0; i < splitGrades.length; i = i + 1) {
+    document.write(splitGrades[i][0] + " - " + splitGrades[i][1] + "<br />")
+}
+    
+var min = splitGrades[0][1];
+var max = 0;
+var average = 0;
+var scores = [];
+
+for (i = 0; i < splitGrades.length; i = i + 1) {
+    scores.push(splitGrades[i][1]);
+}
+    
+for (i = 0; i < scores.length; i = i + 1) {
+    if (min > scores[i]) {
+        min = scores[i]; 
+    }
+}
+
+for (i = 0; i < scores.length; i = i + 1) {
+    if (max < scores[i]) {
+        max = scores[i]; 
+    }
+}
+    
+for (i = 0; i < scores.length; i = i + 1) {
+    average = average + scores[i];
+}
+
+average = average/scores.length;
+    
+document.write("<br />" + "Total number of students - " + splitGrades.length + "<br />Minimum score - " + min + "<br />Maximum score - " + max + "<br />Average score - " + average);
+
+    
+</script>
+    
+</html>
