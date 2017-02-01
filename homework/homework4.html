@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js">
+    </script>
+</head>
+<body>
+
+<h1>Functions & validation</h1>
+
+<form id="form1" action="#" onsubmit="return validateForm(this);">
+  first name: <input type="text" name="firstname"><br>
+  last name: <input type="text" name="lastname"><br>
+  password: <input type="text" name="password"><br>
+
+  <button >Check</button>
+</form>
+
+<hr><div id="message"></div>
+
+<script>
+
+function validatePassword(password) {
+    
+    var caps = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var small = "abcdefghijklmnopqrstuvwxyz";
+    var checksmall = 0;
+    var checkcaps = 0;
+    var check = false;
+    
+    for (var i = 0; i < password.length; i = i + 1) {
+        if (small.search(password.charAt(i)) >= 0) {
+            checksmall = checksmall + 1 ;
+        } 
+        if (caps.search(password.charAt(i)) >= 0) {
+            checkcaps = checkcaps + 1 ;
+        }
+        if (checksmall > 0 && checkcaps > 0 && password.length > 7) {
+        check = true;
+        }
+    }
+    
+    return check;
+}
+
+function validateForm(myForm) {
+    var firstname = myForm.firstname.value; 
+    var lastname = myForm.lastname.value;
+    var password = myForm.password.value;
+    // get text of firstname field
+    // use this syntax to update 'message' DIV with appropriate wording
+
+    /* Form validation code goes here*/
+   check = validatePassword(password) 
+   
+   console.log(check);
+    
+    if (firstname.length < 1 || lastname.length < 1) {
+        $("#message").html("Error!  You didn't enter a full name!");
+    } else if (check == false) {
+        $("#message").html(firstname + " " + lastname + ", I'm afraid your password is invalid.  Make sure it is at least 8 characters long and contains at least one lower case and one upper case letter."); 
+    } else {
+        $("#message").html("Hi, " + firstname + " " + lastname + ", your password is: " + password)
+    }
+
+  
+    return false; // prevent page reload
+}
+        
+    
+</script>
+
+</body>
+</html> 
