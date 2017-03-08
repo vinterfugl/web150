@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div id="content">Steps to take if you become a victim
+If you are a victim of identity theft, the Federal Trade Commission recommends these steps:
+File a complaint with the FTC at identitytheft.gov.
+Contact one of the three major credit bureaus to place a ‘fraud alert’ on your credit records:
+Equifax, www.Equifax.com, 1-800-766-0008
+Experian, www.Experian.com, 1 888-397-3742
+TransUnion, www.TransUnion.org, 1 (800) 680-7289
+Contact your financial institutions, and close any financial or credit accounts opened without your permission or tampered with by identity thieves.
+If your SSN is compromised and you know or suspect you are a victim of tax-related identity theft, the IRS recommends these additional steps:
+Respond immediately to any IRS notice; call the number provided.
+Complete IRS Form 14039, Identity Theft Affidavit, if your efiled return rejects because of a duplicate filing under your SSN or you are instructed to do so. Use a fillable form at IRS.gov, print, then attach the form to your return and mail according to instructions.
+If you previously contacted the IRS and did not have a resolution, contact us for specialized assistance at 1-800-908-4490. We have teams available to assist.
+About data breaches and your taxes
+Not all data breaches or computer hacks result in tax-related identity theft. It’s important to know what type of personal information was stolen.
+If you’ve been a victim of a data breach, keep in touch with the company to learn what it is doing to protect you and follow the “Steps for victims of identity theft.” Data breach victims should submit a Form 14039, Identity Theft Affidavit, only if your Social Security number has been compromised and your efile return was rejected as a duplicate or IRS has informed you that you may be a victim of tax-related identity theft.
+How to reduce your risk
+Join efforts by the IRS, states and tax industry to protect your data. Taxes. Security. Together. We all have a role to play. Here's how you can help:
+Always use security software with firewall and anti-virus protections. Use strong passwords.
+Learn to recognize and avoid phishing emails, threatening calls and texts from thieves posing as legitimate organizations such as your bank, credit card companies and even the IRS.
+Do not click on links or download attachments from unknown or suspicious emails.
+Protect your personal data. Don’t routinely carry your Social Security card, and make sure your tax records are secure.
+See Publication 4524, Security Awareness for Taxpayers, to learn more
+
+Report suspicious online or emailed phishing scams to: phishing@irs.gov. For phishing scams by phone, fax or mail, call 1-800-366-4484. 
+</div>
+        
+<div id="answers">
+    <br />
+</div>
+        
+        <script>
+        $(document).ready(function(){
+            
+            var article = $("#content").text();
+            
+            var words = article.match(/\W/g);
+            var wordcount = words.length;
+            
+            var tax = article.match(/(tax(?! [a-z])|taxes)/ig);
+            var taxcount = tax.length;
+            
+            var phone = article.match(/[1]{1}[\D]{1,2}[0-9]{3}[\D]{1,2}[0-9]{3}[\D]{1}[0-9]{4}/g);
+            
+            var pfraw = article.match(/(Form|Publication)\s\d+\D/g);
+            var pubforms = [];
+            for (i = 0; i < pfraw.length; i = i +1) {
+                if (pubforms.indexOf(pfraw[i].substr(0, pfraw[i].length -1)) == -1 && pfraw[i].length > 1) {
+                pubforms.push(pfraw[i].substr(0, pfraw[i].length -1));
+                }
+            }
+            
+            var urls = article.match(/([a-z]|\d)+[.]{1}[a-z]{3}/g);
+            
+            
+            
+                        
+            $("#answers").append("Word count: " + wordcount + "<br />");
+            $("#answers").append("Tax count: " + taxcount + "<br />");
+            
+            $("#answers").append("Phone numbers: <ul>");
+                for (i = 0; i < phone.length; i = i +1) {
+                    $("#answers").append("<li>" + phone[i] + "</li>");
+                }
+                $("#answers").append("</ul><br />");
+            
+            $("#answers").append("Forms and Publications: <ul>");
+                for (i = 0; i < pubforms.length; i = i +1) {
+                    $("#answers").append("<li>" + pubforms[i] + "</li>");
+                }
+                $("#answers").append("</ul><br />");
+            
+            $("#answers").append("Web Adresses: <ul>");
+                for (i = 0; i < urls.length; i = i +1) {
+                    $("#answers").append("<li>" + urls[i] + "</li>");
+                }
+                $("#answers").append("</ul><br />");
+            
+            
+            
+        /*
+        Use regular expressions, JavaScript & jQuery to:
+        - Count & display # of words
+        - Count & display # of occurrences of 'tax' or 'taxes' (exact match)
+        - Display all phone #'s
+        - Display all IRS forms & publications
+        - Display all web addresses, with full urls
+        */
+        });
+            
+        </script>
+        
+    </body>
+</html>
