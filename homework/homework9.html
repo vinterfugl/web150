@@ -66,7 +66,7 @@ $(function(){
                 //here's the response!
                 var weather = request.responseJSON.list;
                 
-                    for (i = 0; i < weather.length; i = i + 1) {
+                    for (i = 0; i < weather.length; i = i + 8) {
                         var date = weather[i].dt_txt;
                         $("body").append("<div class = 'info' id = '" + i + "'>" + 
                         "<h2>" + date + "</h2><ul>" + 
