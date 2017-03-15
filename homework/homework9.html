@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+    
+<div id = "cityDiv">
+    
+    <form id="cityForm">
+        <input type="text" id="city" placeholder="enter any US City" />
+        <input type="submit" id="cityButton" value="search" />
+    </form>    
+    
+    <button id="resetButton">Try a different city</button>
+    
+</div>
+    
+<script>
+
+$(function(){
+       
+    var $cityForm = $("#cityForm");
+    var $cityButton = $("#cityButton");
+    var $resetButton = $("#resetButton");
+    var $textInput = $("input:text");
+    
+    $resetButton.hide();
+
+    //call a function when the form is submitted
+    $cityForm.on("submit", function(e){
+        
+           //stop the form from submission
+            e.preventDefault();
+        
+            //get the value entered by the user
+            var newText = $textInput.val();
+        
+        
+            $cityForm.hide();
+            $cityButton.hide();
+            $resetButton.show();
+        
+            $resetButton.on("click", function(){
+                $cityForm.show();
+                $cityButton.show();
+                $resetButton.hide();
+                $("h1, .info").remove();
+                $textInput.val("");
+            });
+        
+            if (newText.length < 1 | newText.match(/\d+/g)) {
+                $("#cityDiv").append("<h1>Please enter a valid city name.</h1>")
+            } else {
+        
+                console.log(newText);
+                $("#cityDiv").append("<h1>Weather Results for " + newText + "</h1>");
+        
+                var request = $.getJSON({
+                    url: "http://api.openweathermap.org/data/2.5/forecast?q=" + newText + ",us&APPID=c257ff077ac6bdcc9fc91843145138f0&units=imperial"
+                });
+        
+                request.done(function(data) {
+                
+                //here's the response!
+                var weather = request.responseJSON.list;
+                
+                    for (i = 0; i < weather.length; i = i + 1) {
+                        var date = weather[i].dt_txt;
+                        $("body").append("<div class = 'info' id = '" + i + "'>" + 
+                        "<h2>" + date + "</h2><ul>" + 
+                        "<li>Low temperature: " + weather[i].main.temp_min + "&deg;F</li>" +
+                        "<li>High temperature: " + weather[i].main.temp_max + "&deg;F</li>" +
+                        "<li>Humidity: " + weather[i].main.humidity + "%</li>" +
+                        "<li>Weather: " + weather[i].weather[0].description + "</li></ul>" +
+                        "<img src='http://openweathermap.org/img/w/" + weather[i].weather[0].icon + ".png'></li>" +
+                        "</div>"); 
+                    }
+                    
+                });
+                
+            }
+    
+    
+    console.log(request);
+        
+    
+    });
+              
+});
+    
+        
+</script>
+    
+<!--
+<style>
+
+    body {
+        display: flex;
+    }
+    
+    .info {
+        width: auto;
+        background-color: aquamarine;
+    }
+    
+</style>
+-->
+    
+</body>   
+    
+</html>
